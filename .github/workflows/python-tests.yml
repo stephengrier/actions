@@ -1,11 +1,6 @@
 name: 'Run Python linter and pytests'
 on:
   pull_request:
-    types:
-      - opened
-      - reopened
-      - edited
-      - synchronize
     paths:
       - 'data-pipeline/app'
 jobs:
@@ -30,7 +25,5 @@ jobs:
         run: |
           flake8 --config .flake8
       - name: Test with pytest
-        env:
-          debug_level: "INFO"
         run: |
           python -m pytest
