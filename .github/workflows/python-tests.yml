@@ -2,10 +2,10 @@ name: 'Run Python linter and pytests'
 on:
   push:
     paths:
-      - 'data-pipeline/app'
+      - 'data-pipeline/app/**'
   pull_request:
     paths:
-      - 'data-pipeline/app'
+      - 'data-pipeline/app/**'
 
 jobs:
   lint_and_test:
