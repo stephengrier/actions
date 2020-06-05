@@ -1,0 +1,19 @@
+name: 'Terraform GitHub Actions'
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - '**.tf'
+jobs:
+  terraform:
+    name: 'Terraform Init and Validate'
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@master
+      - name: 'Terraform Init and Validate'
+        run: |
+          scripts/tf_validate_deployments.sh
+        env:
+          NO_PROMPT: true
