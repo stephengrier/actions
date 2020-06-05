@@ -1,15 +1,20 @@
 name: 'Run Python linter and pytests'
 on:
-  push:
-    paths:
-      - 'data-pipeline/app/**'
   pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
     paths:
       - 'data-pipeline/app/**'
 
 jobs:
   lint_and_test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: c19-feedback-data-pipeline/app
     steps:
       - name: Checkout
         uses: actions/checkout@master
@@ -26,5 +31,7 @@ jobs:
         run: |
           flake8 --config .flake8
       - name: Test with pytest
+        env:
+          debug_level: "INFO"
         run: |
-          python -m pytest
+          python -m pytest -vv
