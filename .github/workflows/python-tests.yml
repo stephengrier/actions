@@ -1,4 +1,4 @@
-name: Run Python linter and pytests
+name: 'Run Python linter and pytests'
 on:
   pull_request:
     types:
@@ -7,13 +7,13 @@ on:
       - edited
       - synchronize
     paths:
-      - ./data-pipeline/app
+      - 'data-pipeline/app'
 jobs:
   lint_and_test:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./data-pipeline/app
+        working-directory: 'data-pipeline/app'
     steps:
       - name: Checkout
         uses: actions/checkout@master
