@@ -1,0 +1,36 @@
+name: Run Python linter and pytests
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+    paths:
+      - ./data-pipeline/app
+jobs:
+  lint_and_test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./data-pipeline/app
+    steps:
+      - name: Checkout
+        uses: actions/checkout@master
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: '3.7'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Lint with flake8
+        run: |
+          flake8 --config .flake8
+      - name: Test with pytest
+        env:
+          debug_level: "INFO"
+        run: |
+          python -m pytest
